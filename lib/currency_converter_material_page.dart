@@ -11,6 +11,10 @@ class _CurrencyConverterMaterialPage
     extends State<CurrencyConverterMaterialPage> {
   double result = 0;
   final TextEditingController textEditingController = TextEditingController();
+  void convert() {
+    result = double.parse(textEditingController.text) * 150;
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +41,7 @@ class _CurrencyConverterMaterialPage
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-             "INR ${result !=0 ? result.toStringAsFixed(2): result.toStringAsFixed(0)}",
+              "INR ${result != 0 ? result.toStringAsFixed(2) : result.toStringAsFixed(0)}",
               style: TextStyle(
                 fontSize: 55,
                 fontWeight: FontWeight.bold,
@@ -80,9 +84,7 @@ class _CurrencyConverterMaterialPage
                   // }
                   // print(textEditingController.text);
                   // print(double.parse(textEditingController.text) * 81);
-                  setState(() {
-                    result = double.parse(textEditingController.text) * 81;
-                  });
+                  convert();
                 },
                 style: ButtonStyle(
                   elevation: WidgetStatePropertyAll(15),
@@ -103,7 +105,6 @@ class _CurrencyConverterMaterialPage
           ],
         ),
       ),
-      
     );
   }
 }
