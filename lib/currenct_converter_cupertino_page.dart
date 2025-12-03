@@ -1,113 +1,79 @@
-
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 class CurrencyConverterCupertinoPage extends StatefulWidget {
   const CurrencyConverterCupertinoPage({super.key});
 
   @override
-  State<CurrencyConverterCupertinoPage> createState() => _CurrencyConverterCupertinoPageState();
+  State<CurrencyConverterCupertinoPage> createState() =>
+      _CurrencyConverterCupertinoPageState();
 }
 
-class _CurrencyConverterCupertinoPageState extends State<CurrencyConverterCupertinoPage> {
+class _CurrencyConverterCupertinoPageState
+    extends State<CurrencyConverterCupertinoPage> {
+
   double result = 0;
   final TextEditingController textEditingController = TextEditingController();
+
   void convert() {
-    result = double.parse(textEditingController.text) * 81;
-    setState(() {});
+    setState(() {
+      result = double.parse(textEditingController.text) * 80;
+    });
   }
-    @override
+
+  @override
   Widget build(BuildContext context) {
-    final border = OutlineInputBorder(
-      borderSide: BorderSide(
-        width: 2,
-        strokeAlign: BorderSide.strokeAlignOutside,
-      ),
-      borderRadius: BorderRadius.all(Radius.circular(60)),
-    );
-    return Scaffold(
-      backgroundColor: Colors.blueGrey,
-      appBar: AppBar(
-        backgroundColor: Colors.blueGrey,
-        elevation: 0,
-        title: Text(
+    return CupertinoPageScaffold(
+      backgroundColor: CupertinoColors.systemGrey3,
+      navigationBar: const CupertinoNavigationBar(
+        backgroundColor: CupertinoColors.systemGrey3,
+        middle: Text(
           "Currency Converter",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: CupertinoColors.white),
         ),
-        // centerTitle: true,
       ),
-      body: Center(
+      child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-             "INR ${result !=0 ? result.toStringAsFixed(2): result.toStringAsFixed(0)}",
-              style: TextStyle(
+              "INR ${result != 0 ? result.toStringAsFixed(2) : result.toStringAsFixed(0)}",
+              style: const TextStyle(
                 fontSize: 55,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: CupertinoColors.white,
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                style: const TextStyle(color: Colors.black),
-                controller: textEditingController,
-                decoration: InputDecoration(
-                  // label: Text(
-                  //   "Enter the value",
-                  //   style: TextStyle(color: Colors.white),
-                  // ),
-                  hintText: "Enter the amount in USD",
-                  hintStyle: const TextStyle(color: Colors.black),
-                  prefixIcon: const Icon(Icons.monetization_on),
-                  prefixIconColor: Colors.black,
-                  suffixIcon: const Icon(Icons.monetization_on),
-                  suffixIconColor: Colors.black,
-                  filled: true,
-                  fillColor: Colors.white,
-                  focusedBorder: border,
-                  enabledBorder: border,
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: CupertinoColors.black),
+                  color: CupertinoColors.white,
+                  borderRadius: BorderRadius.circular(5),
                 ),
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                child: CupertinoTextField(
+                  style: const TextStyle(color: CupertinoColors.black),
+                  controller: textEditingController,
+                  placeholder: "Enter the amount in USD",
+                  prefix: const Icon(CupertinoIcons.money_dollar),
+                  suffix: const Icon(CupertinoIcons.money_dollar),
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                ),
               ),
             ),
-            //button
+
+            // Button
             Container(
               padding: const EdgeInsets.all(10.0),
-              child: TextButton(
-                onPressed: () {
-                  // print("Button clicked");
-                  // debugPrint("button clicked");
-                  // if (kDebugMode) {
-                  //   print("button clicked");
-                  // }
-                  // print(textEditingController.text);
-                  // print(double.parse(textEditingController.text) * 81);
-                  setState(() {
-                    result = double.parse(textEditingController.text) * 81;
-                  });
-                },
-                style: ButtonStyle(
-                  elevation: WidgetStatePropertyAll(15),
-                  backgroundColor: WidgetStatePropertyAll(Colors.black),
-                  foregroundColor: WidgetStatePropertyAll(Colors.white),
-                  minimumSize: WidgetStatePropertyAll(
-                    Size(double.infinity, 55),
-                  ),
-                  shape: WidgetStatePropertyAll(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(60),
-                    ),
-                  ),
-                ),
-                child: Text("convert ", style: TextStyle(fontSize: 20)),
+              child: CupertinoButton(
+                onPressed: convert,
+                color: CupertinoColors.black,
+                child: const Text("Convert", style: TextStyle(fontSize: 20)),
               ),
             ),
           ],
         ),
       ),
-      
     );
-  }
   }
 }
