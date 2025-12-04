@@ -69,6 +69,7 @@ class _CurrencyConverterMaterialPage
                   focusedBorder: border,
                   enabledBorder: border,
                 ),
+                onSubmitted: (value)=> convert(),
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
               ),
             ),
